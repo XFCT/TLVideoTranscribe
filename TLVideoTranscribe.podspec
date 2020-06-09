@@ -7,7 +7,7 @@ Pod::Spec.new do |s|
     s.license      = { :type => 'MIT', :file => 'LICENSE' }
     s.author       = { "xfc" => "1016042696@qq.com" }
     s.platform = :ios
-    s.platform = :ios, "9.0"
+    s.platform = :ios, "13.0"
     s.source       = { :git => "https://github.com/XFCT/TLVideoTranscribe.git", :tag => "1.0.0" }
     s.source_files  = "TLVideoTranscribe/*.{swift}"
     s.frameworks  = "UIKit","Foundation"
