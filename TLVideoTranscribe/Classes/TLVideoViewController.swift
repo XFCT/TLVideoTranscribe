@@ -23,26 +23,60 @@ class TLVideoViewController: UIViewController, AVCaptureAudioDataOutputSampleBuf
     var videoInput:AVCaptureDeviceInput?
     
     var session:AVCaptureSession!
+
+    //照片输出流
+    var capturePhotoOutput:AVCapturePhotoOutput!
+    ///设备朝向
+    var shootingOrientation:UIDeviceOrientation!
+    
+    var recordView:TLRecordView!
+    
+    var centerWhiteView : UIView!
+    
+    
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
         view.backgroundColor = .white
-    
-       let button = UIButton(type: .custom)
-       view.addSubview(button)
-       button.setTitle("开始", for: .normal)
-       button.setTitleColor(.blue, for: .normal)
-       button.frame = CGRect(x: 50, y: 100, width: 50, height: 30)
-       button.addTarget(self, action: #selector(buttonClick), for: .touchUpInside)
+
+        //初始化
+        self.setupSession()
         
+        //返回按钮
+       let backButton = UIButton(type: .custom)
+       backButton.setImage(UIImage(named: "back"), for: .normal)
+       view.addSubview(backButton)
+       backButton.frame = CGRect(x: 80, y: SCREEN_HEIGHT-80, width: 30, height: 30)
+       backButton.addTarget(self, action: #selector(buttonClick), for: .touchUpInside)
+//       backButton.center = CGPoint(x: self.view.bounds.size.width/2, y: self.view.bounds.size.height-80)
+        
+        //切换摄像头
         let switchbutton = UIButton(type: .custom)
         view.addSubview(switchbutton)
-        switchbutton.setTitle("切换摄像头", for: .normal)
-        switchbutton.setTitleColor(.blue, for: .normal)
-        switchbutton.frame = CGRect(x: SCREEN_WDITH-150, y: 100, width: 100, height: 30)
+        switchbutton.setImage(UIImage(named: "cameraAround"), for: .normal)
+        switchbutton.frame = CGRect(x: SCREEN_WDITH-50, y: 30, width: 30, height: 30)
         switchbutton.addTarget(self, action: #selector(switchbuttonClick), for: .touchUpInside)
+        
+        self.recordView = TLRecordView.init(frame: CGRect(x: 0, y: 0, width: 70, height: 70))
+        self.view.addSubview(self.recordView)
+        self.recordView.center = CGPoint(x: self.view.bounds.size.width/2, y: self.view.bounds.size.height-80)
+        self.recordView.clipsToBounds = true
+        self.recordView.layer.cornerRadius = self.recordView.bounds.size.width/2.0
+        
+        self.centerWhiteView = UIView()
+        self.centerWhiteView.frame = CGRect(x: 0, y: 0, width: 50, height: 50)
+        self.centerWhiteView.center = CGPoint(x: self.recordView.bounds.size.width/2.0, y: self.recordView.bounds.size.height/2.0)
+        self.centerWhiteView.layer.cornerRadius = self.centerWhiteView.bounds.size.width/2.0
+        self.recordView.addSubview(self.centerWhiteView)
+        self.centerWhiteView.backgroundColor = .white
+        
+        //给录制按钮添加长按收拾和点击拍照
+        let tap = UITapGestureRecognizer.init(target: self, action: #selector(takePhoto))
+        self.recordView.addGestureRecognizer(tap)
+        
     }
     
     /**
@@ -77,12 +111,23 @@ class TLVideoViewController: UIViewController, AVCaptureAudioDataOutputSampleBuf
             return
         }
         self.videoInput = videoInput
+        ///视频输入流
         self.session.addInput(self.videoInput!)
+        
         let videoOutput = AVCaptureVideoDataOutput()
         videoOutput.setSampleBufferDelegate(self, queue: videoQueue)
+        ///视频输出流
         self.session.addOutput(videoOutput)
-        //预览
         
+        //照片流输出
+        self.capturePhotoOutput = AVCapturePhotoOutput.init()
+        if self.session.canAddOutput(self.capturePhotoOutput) {
+            self.session.addOutput(self.capturePhotoOutput)
+        }
+        
+        //
+        
+        //预览
         previewLayer.frame = view.bounds
         view.layer.insertSublayer(previewLayer, at: 0)
         
@@ -103,7 +148,16 @@ class TLVideoViewController: UIViewController, AVCaptureAudioDataOutputSampleBuf
     }
     
     @objc func buttonClick (){
-       setupSession()
+        self.dismiss(animated: true, completion: nil)
+    }
+    ///拍摄照片
+    @objc func takePhoto() {
+//        let captureConnection = self.capturePhotoOutput.connection(with: AVMediaType.video)
+        ///使用
+        let capturePhotoSettings = AVCapturePhotoSettings.init()
+        capturePhotoSettings.flashMode = .off
+        self.capturePhotoOutput.capturePhoto(with: capturePhotoSettings, delegate: self)
+        
     }
     //切换摄像头
     @objc func switchbuttonClick(){
@@ -131,6 +185,17 @@ extension TLVideoViewController:AVCaptureVideoDataOutputSampleBufferDelegate {
     func captureOutput(_ output: AVCaptureOutput, didDrop sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
          print("采集")
     }
+    
 }
+//拍照
+extension TLVideoViewController:AVCapturePhotoCaptureDelegate {
+    
+    func photoOutput(_ output: AVCapturePhotoOutput, didFinishProcessingPhoto photo: AVCapturePhoto, error: Error?) {
+        let data = photo.fileDataRepresentation()
+        let image = UIImage.init(data: data!)
+        
+    }
+}
+
 
 

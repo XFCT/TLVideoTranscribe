@@ -12,8 +12,9 @@
 		9516F848243DD8B700A3782B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9516F846243DD8B700A3782B /* Main.storyboard */; };
 		9516F84A243DD8BB00A3782B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9516F849243DD8BB00A3782B /* Assets.xcassets */; };
 		9516F84D243DD8BB00A3782B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9516F84B243DD8BB00A3782B /* LaunchScreen.storyboard */; };
-		9516F855243DD8E000A3782B /* TLVideoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9516F854243DD8E000A3782B /* TLVideoViewController.swift */; };
 		9516F857243DE3BC00A3782B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9516F856243DE3BC00A3782B /* SceneDelegate.swift */; };
+		959849032490C8D200CE6259 /* TLVideoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 959849022490C8D200CE6259 /* TLVideoViewController.swift */; };
+		959849052490CD5900CE6259 /* TLRecordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 959849042490CD5900CE6259 /* TLRecordView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,8 +25,9 @@
 		9516F849243DD8BB00A3782B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9516F84C243DD8BB00A3782B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9516F84E243DD8BB00A3782B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		9516F854243DD8E000A3782B /* TLVideoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TLVideoViewController.swift; sourceTree = "<group>"; };
 		9516F856243DE3BC00A3782B /* SceneDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		959849022490C8D200CE6259 /* TLVideoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TLVideoViewController.swift; sourceTree = "<group>"; };
+		959849042490CD5900CE6259 /* TLRecordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TLRecordView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,16 +60,25 @@
 		9516F83F243DD8B700A3782B /* TLVideoTranscribe */ = {
 			isa = PBXGroup;
 			children = (
+				959849012490C8D200CE6259 /* Classes */,
 				9516F840243DD8B700A3782B /* AppDelegate.swift */,
 				9516F844243DD8B700A3782B /* ViewController.swift */,
 				9516F856243DE3BC00A3782B /* SceneDelegate.swift */,
-				9516F854243DD8E000A3782B /* TLVideoViewController.swift */,
 				9516F846243DD8B700A3782B /* Main.storyboard */,
 				9516F849243DD8BB00A3782B /* Assets.xcassets */,
 				9516F84B243DD8BB00A3782B /* LaunchScreen.storyboard */,
 				9516F84E243DD8BB00A3782B /* Info.plist */,
 			);
 			path = TLVideoTranscribe;
+			sourceTree = "<group>";
+		};
+		959849012490C8D200CE6259 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				959849022490C8D200CE6259 /* TLVideoViewController.swift */,
+				959849042490CD5900CE6259 /* TLRecordView.swift */,
+			);
+			path = Classes;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -141,10 +152,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9516F855243DD8E000A3782B /* TLVideoViewController.swift in Sources */,
 				9516F845243DD8B700A3782B /* ViewController.swift in Sources */,
+				959849032490C8D200CE6259 /* TLVideoViewController.swift in Sources */,
 				9516F841243DD8B700A3782B /* AppDelegate.swift in Sources */,
 				9516F857243DE3BC00A3782B /* SceneDelegate.swift in Sources */,
+				959849052490CD5900CE6259 /* TLRecordView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

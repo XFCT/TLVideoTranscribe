@@ -9,7 +9,7 @@ Pod::Spec.new do |s|
     s.platform = :ios
     s.platform = :ios, "13.0"
     s.source       = { :git => "https://github.com/XFCT/TLVideoTranscribe.git", :tag => "1.0.0" }
-    s.source_files  = "TLVideoTranscribe/*.{swift}"
+    s.source_files  = "TLVideoTranscribe/Classes/*.{swift}"
     s.frameworks  = "UIKit","Foundation"
     s.requires_arc = true
     
